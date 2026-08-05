@@ -1,19 +1,40 @@
 {
-  "head_node_id": "initial_entry",
+  "head_node_id": "entry",
   "nodes": [
     {
-      "option_id": "initial_entry",
-      "option_text": "Welcome to the hotel",
-      "children_ids": [
-        "option_choice"
-      ]
+      "option_id": "entry",
+      "option_text": "",
+      "children_ids": ["arrive_at_inn"]
     },
     {
-      "option_id": "option_choice",
-      "option_text": "Options: ",
-      "children_ids": [
-
-      ]
+      "option_id": "arrive_at_inn",
+      "option_text": "You arrive at a dimly lit inn. The innkeeper eyes you carefully.",
+      "children_ids": ["ask_for_room", "ask_for_drink", "leave"]
+    },
+    {
+      "option_id": "ask_for_room",
+      "option_text": "The innkeeper slides a key across the counter.",
+      "children_ids": ["go_to_room", "ask_about_noise"]
+    },
+    {
+      "option_id": "ask_for_drink",
+      "option_text": "The innkeeper pours something dark and says nothing.",
+      "children_ids": ["ask_about_noise", "leave"]
+    },
+    {
+      "option_id": "ask_about_noise",
+      "option_text": "The innkeeper leans in. 'You didn't hear anything. Understood?'",
+      "children_ids": ["go_to_room", "leave"]
+    },
+    {
+      "option_id": "go_to_room",
+      "option_text": "You head upstairs. The floorboards creak with every step.",
+      "children_ids": []
+    },
+    {
+      "option_id": "leave",
+      "option_text": "You step back into the cold night air.",
+      "children_ids": []
     }
   ]
 }

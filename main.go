@@ -6,6 +6,6 @@ import (
 
 func main() {
 
-	dialog.Entry()
+	dialog.Run()
 
 }

@@ -16,22 +16,28 @@ type Option struct {
 }
 
 // Initialize this initializes the path and the options inside the tree
-func Initialize(path string) ([]Option, error) {
+func Initialize(path string) error {
 	var err error
 	optionTree, err = pathing.BuildOptionTree(path)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	current = optionTree.Options[optionTree.HeadId]
-	options := getOptions(optionTree.HeadId)
-	return options, nil
+	return nil
+}
+
+func GetCurrent() Option {
+	return Option{
+		Id:   current.OptionId,
+		Text: current.OptionText,
+	}
 }
 
 // ChooseOption uses the id of an option Node to return the next possible strings
-func ChooseOption(optionId string) ([]Option, error) {
+func ChooseOption(optionId string) error {
 	if !slices.Contains(current.ChildrenIds, optionId) {
-		return nil, errors.New("option does not exist")
+		return errors.New("option does not exist")
 	}
 
 	/*
@@ -41,17 +47,17 @@ func ChooseOption(optionId string) ([]Option, error) {
 	*/
 	current = optionTree.Options[optionId]
 
-	return getOptions(current.OptionId), nil
+	return nil
 }
 
-func getOptions(nodeId string) []Option {
-	headNode := optionTree.Options[nodeId]
-	var options []Option
+func GetOptions(optionId string) []Option {
+	head := optionTree.Options[optionId]
+	options := make([]Option, 0, len(head.ChildrenIds))
 
-	for _, optionId := range headNode.ChildrenIds {
+	for _, optId := range head.ChildrenIds {
 		newOption := Option{
-			Id:   optionId,
-			Text: optionTree.Options[optionId].OptionText,
+			Id:   optId,
+			Text: optionTree.Options[optId].OptionText,
 		}
 		options = append(options, newOption)
 	}
