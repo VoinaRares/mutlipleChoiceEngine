@@ -1,10 +1,10 @@
 package dialog
 
 import (
-	"awesomeProject/traversel"
 	"bufio"
 	"errors"
 	"fmt"
+	"learningProject/traversal"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -30,7 +30,7 @@ func resolveDialogPath() string {
 
 func Run() {
 
-	err := traversel.Initialize(resolveDialogPath())
+	err := traversal.Initialize(resolveDialogPath())
 	if err != nil {
 		fmt.Print("Error intiliazing Dialog Tree")
 		return
@@ -38,15 +38,14 @@ func Run() {
 	reader := bufio.NewReader(os.Stdin)
 
 	for {
-		currentOption := traversel.GetCurrent()
-		options := traversel.GetOptions(currentOption.Id)
+		currentOption := traversal.GetCurrent()
+		options := traversal.GetOptions(currentOption.Id)
 		displayOptions(options)
 		newOptionIndexStr, err := reader.ReadString('\n')
 		if err != nil {
 			fmt.Print("Error reading options")
 			return
 		}
-
 		newOptionIndexStr = strings.TrimSpace(newOptionIndexStr)
 		newOptionIndex, err := strconv.Atoi(newOptionIndexStr)
 		if err != nil {
@@ -60,19 +59,19 @@ func Run() {
 		}
 		newOptionIndex-- //Decrement to use as index in slice
 		newOptionId := options[newOptionIndex].Id
-		err = traversel.ChooseOption(newOptionId)
+		err = traversal.ChooseOption(newOptionId)
 	}
 
 }
 
-func displayOptions(options []traversel.Option) {
+func displayOptions(options []traversal.Option) {
 	fmt.Println("Choosse an Option: ")
 	for i, option := range options {
 		fmt.Printf("%d. "+option.Text+"\n", i+1)
 	}
 }
 
-func validateOption(option int, options []traversel.Option) error {
+func validateOption(option int, options []traversal.Option) error {
 	if option < 1 || option > len(options) {
 		return errors.New("Invalid option")
 	}

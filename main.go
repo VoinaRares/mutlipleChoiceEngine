@@ -1,7 +1,7 @@
 package main
 
 import (
-	"awesomeProject/dialog"
+	"learningProject/dialog"
 )
 
 func main() {

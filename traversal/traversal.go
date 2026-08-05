@@ -1,8 +1,8 @@
-package traversel
+package traversal
 
 import (
-	"awesomeProject/pathing"
 	"errors"
+	"learningProject/pathing"
 	"slices"
 )
 
