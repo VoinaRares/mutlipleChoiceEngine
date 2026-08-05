@@ -10,4 +10,5 @@ type Node struct {
 	OptionId    string   `json:"option_id"`
 	OptionText  string   `json:"option_text"`
 	ChildrenIds []string `json:"children_ids"`
+	PreviewText string   `json:"preview_text"`
 }

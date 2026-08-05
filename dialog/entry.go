@@ -40,7 +40,7 @@ func Run() {
 	for {
 		currentOption := traversal.GetCurrent()
 		options := traversal.GetOptions(currentOption.Id)
-		displayOptions(options)
+		displayPreviews(options)
 		newOptionIndexStr, err := reader.ReadString('\n')
 		if err != nil {
 			fmt.Print("Error reading options")
@@ -64,10 +64,10 @@ func Run() {
 
 }
 
-func displayOptions(options []traversal.Option) {
+func displayPreviews(options []traversal.Option) {
 	fmt.Println("Choosse an Option: ")
 	for i, option := range options {
-		fmt.Printf("%d. "+option.Text+"\n", i+1)
+		fmt.Printf("%d. "+option.PreviewText+"\n", i+1)
 	}
 }
 
