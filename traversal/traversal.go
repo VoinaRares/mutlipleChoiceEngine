@@ -3,36 +3,45 @@ package traversal
 import (
 	"errors"
 	"learningProject/pathing"
+	"learningProject/playerstates"
 	"slices"
 )
 
 // The main story of the game. This tree will be used to traverse the story
 var optionTree pathing.OptionTree
 var current *pathing.Node
+var playerState playerstates.PlayerStates
 
 type Option struct {
-	Id          string
-	Text        string
-	PreviewText string
+	Id           string
+	Text         string
+	PreviewText  string
+	Requirements map[string]int
 }
 
 // Initialize this initializes the path and the options inside the tree
-func Initialize(path string) error {
+func Initialize(treePath string, playerPath string) error {
 	var err error
-	optionTree, err = pathing.BuildOptionTree(path)
+	optionTree, err = pathing.BuildOptionTree(treePath)
+	if err != nil {
+		return err
+	}
+	playerState, err = playerstates.BuildPlayerStates(playerPath)
 	if err != nil {
 		return err
 	}
 
+	err = validateTreePlayerStates()
 	current = optionTree.Options[optionTree.HeadId]
 	return nil
 }
 
 func GetCurrent() Option {
 	return Option{
-		Id:          current.OptionId,
-		Text:        current.OptionText,
-		PreviewText: current.PreviewText,
+		Id:           current.OptionId,
+		Text:         current.OptionText,
+		PreviewText:  current.PreviewText,
+		Requirements: current.Requirements,
 	}
 }
 
@@ -58,12 +67,18 @@ func GetOptions(optionId string) []Option {
 
 	for _, optId := range head.ChildrenIds {
 		newOption := Option{
-			Id:          optId,
-			Text:        optionTree.Options[optId].OptionText,
-			PreviewText: optionTree.Options[optId].PreviewText,
+			Id:           optId,
+			Text:         optionTree.Options[optId].OptionText,
+			PreviewText:  optionTree.Options[optId].PreviewText,
+			Requirements: optionTree.Options[optId].Requirements,
 		}
 		options = append(options, newOption)
 	}
 
 	return options
+}
+
+// validate that the tree does not carry different states
+func validateTreePlayerStates() error {
+	return nil
 }

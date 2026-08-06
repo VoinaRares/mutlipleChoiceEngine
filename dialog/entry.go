@@ -13,24 +13,25 @@ import (
 )
 
 const StoryPath = "dialog.json"
+const PlayerStatesPath = "player_states.json"
 
-func resolveDialogPath() string {
+func resolvePath(path string) string {
 	_, callerFile, _, ok := runtime.Caller(0)
 	if !ok {
-		return StoryPath
+		return path
 	}
 
-	candidate := filepath.Clean(filepath.Join(filepath.Dir(callerFile), "..", StoryPath))
+	candidate := filepath.Clean(filepath.Join(filepath.Dir(callerFile), "..", path))
 	if _, err := os.Stat(candidate); err == nil {
 		return candidate
 	}
 
-	return StoryPath
+	return path
 }
 
 func Run() {
 
-	err := traversal.Initialize(resolveDialogPath())
+	err := traversal.Initialize(resolvePath(StoryPath), resolvePath(PlayerStatesPath))
 	if err != nil {
 		fmt.Print("Error initializing Dialog Tree: ", err)
 		return

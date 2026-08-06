@@ -7,8 +7,9 @@ import (
 )
 
 type nodes struct {
-	HeadNodeId string `json:"head_node_id"`
-	Nodes      []Node `json:"nodes"`
+	HeadNodeId string   `json:"head_node_id"`
+	Nodes      []Node   `json:"nodes"`
+	States     []string `json:"states"`
 }
 
 func BuildOptionTree(path string) (OptionTree, error) {
