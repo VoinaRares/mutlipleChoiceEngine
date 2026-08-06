@@ -32,29 +32,23 @@ func Run() {
 
 	err := traversal.Initialize(resolveDialogPath())
 	if err != nil {
-		fmt.Print("Error intiliazing Dialog Tree")
+		fmt.Print("Error initializing Dialog Tree: ", err)
 		return
 	}
-	reader := bufio.NewReader(os.Stdin)
 
 	for {
 		currentOption := traversal.GetCurrent()
 		options := traversal.GetOptions(currentOption.Id)
 		displayPreviews(options)
-		newOptionIndexStr, err := reader.ReadString('\n')
+
+		newOptionIndex, err := readOption()
 		if err != nil {
-			fmt.Print("Error reading options")
-			return
-		}
-		newOptionIndexStr = strings.TrimSpace(newOptionIndexStr)
-		newOptionIndex, err := strconv.Atoi(newOptionIndexStr)
-		if err != nil {
-			fmt.Print("Error parsing string to option id")
+			fmt.Println("error:", err)
 			continue
 		}
 		err = validateOption(newOptionIndex, options)
 		if err != nil {
-			fmt.Println("Invalid option")
+			fmt.Println("Invalid option", err)
 			continue
 		}
 		newOptionIndex-- //Decrement to use as index in slice
@@ -64,8 +58,24 @@ func Run() {
 
 }
 
+func readOption() (int, error) {
+	reader := bufio.NewReader(os.Stdin)
+
+	newOptionIndexStr, err := reader.ReadString('\n')
+	if err != nil {
+		return 0, errors.New("error reading options")
+	}
+	newOptionIndexStr = strings.TrimSpace(newOptionIndexStr)
+	newOptionIndex, err := strconv.Atoi(newOptionIndexStr)
+	if err != nil {
+		return 0, errors.New("error parsing string to option id")
+	}
+
+	return newOptionIndex, nil
+
+}
 func displayPreviews(options []traversal.Option) {
-	fmt.Println("Choosse an Option: ")
+	fmt.Println("Choose an Option: ")
 	for i, option := range options {
 		fmt.Printf("%d. "+option.PreviewText+"\n", i+1)
 	}
@@ -73,7 +83,7 @@ func displayPreviews(options []traversal.Option) {
 
 func validateOption(option int, options []traversal.Option) error {
 	if option < 1 || option > len(options) {
-		return errors.New("Invalid option")
+		return errors.New("option is out of range")
 	}
 	return nil
 }
