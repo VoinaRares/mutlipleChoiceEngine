@@ -3,6 +3,7 @@ package pathing
 type OptionTree struct {
 	HeadId  string
 	Options map[string]*Node
+	States  []string
 }
 
 type Node struct {

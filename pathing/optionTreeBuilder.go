@@ -3,7 +3,9 @@ package pathing
 import (
 	"encoding/json"
 	"errors"
+	"maps"
 	"os"
+	"slices"
 )
 
 type nodes struct {
@@ -28,15 +30,16 @@ func BuildOptionTree(path string) (OptionTree, error) {
 		nodeCopy := node
 		tree.Options[node.OptionId] = &nodeCopy
 	}
+	tree.States = nodeArray.States
 
 	err = validateOptionTree(&tree)
 	if err != nil {
 		return OptionTree{}, err
 	}
-
 	return tree, nil
 }
 
+// We are basically doing the same exact logic inside the player states. We will have to migarate it to generics
 func parseJsonToNodes(path string) (nodes, error) {
 
 	jsonFile, err := os.Open(path)
@@ -63,6 +66,11 @@ func validateOptionTree(tree *OptionTree) error {
 				return errors.New("invalid OptionTree! ChildrenId was not part of the tree")
 			}
 
+		}
+		for _, state := range slices.Collect(maps.Keys(node.Requirements)) {
+			if !slices.Contains(tree.States, state) {
+				return errors.New("invalid OptionTree! State was not part of the tree")
+			}
 		}
 	}
 	return nil
