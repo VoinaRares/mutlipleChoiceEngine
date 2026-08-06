@@ -7,42 +7,48 @@
       "option_text": "The door creaks as you push it open. The inn is half empty, lit by a few candles. The innkeeper looks up from behind the counter, says nothing, and waits.",
       "preview_text": "",
       "children_ids": ["ask_for_room", "ask_for_drink", "leave"],
-      "requirements": {}
+      "requirements": {},
+      "state_changes": {}
     },
     {
       "option_id": "ask_for_room",
       "option_text": "The innkeeper reaches under the counter without a word and slides a heavy iron key toward you. Room 4. Top of the stairs, last door on the left.",
       "preview_text": "Ask for a room",
       "children_ids": ["go_to_room", "ask_about_noise"],
-      "requirements": {}
+      "requirements": {},
+      "state_changes": { "curious": 1 }
     },
     {
       "option_id": "ask_for_drink",
       "option_text": "He pours something dark into a chipped cup and sets it in front of you. It smells like burnt wood and something else you can't place. He doesn't ask if you want anything else.",
       "preview_text": "Ask for a drink",
       "children_ids": ["ask_about_noise", "leave"],
-      "requirements": {}
+      "requirements": {},
+      "state_changes": { "wary": 1 }
     },
     {
       "option_id": "ask_about_noise",
       "option_text": "The innkeeper leans forward slowly, close enough that you can hear him breathing. 'There is no noise,' he says quietly. 'And there was no one in the room last night. Are we understood?'",
       "preview_text": "Ask about the noise upstairs",
       "children_ids": ["go_to_room", "leave"],
-      "requirements": { "curious": 1 }
+      "requirements": {},
+      "state_changes": { "wary": 2 }
     },
     {
       "option_id": "go_to_room",
       "option_text": "The stairs groan under every step. Room 4 is small — a bed, a window that won't latch properly, and a smell like damp stone. You sit on the edge of the mattress and listen to the inn settle around you.",
       "preview_text": "Head up to the room",
       "children_ids": [],
-      "requirements": {}
+      "requirements": {},
+      "state_changes": {}
     },
     {
       "option_id": "leave",
       "option_text": "The cold outside is sharp after the warmth of the inn. You pull your coat tighter and walk back into the dark without looking back.",
       "preview_text": "Leave the inn",
       "children_ids": [],
-      "requirements": { "wary": 2 }
+      "requirements": { "wary": 1 },
+      "state_changes": {}
     }
   ]
 }

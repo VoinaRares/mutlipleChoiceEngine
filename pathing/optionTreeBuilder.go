@@ -72,6 +72,11 @@ func validateOptionTree(tree *OptionTree) error {
 				return errors.New("invalid OptionTree! State was not part of the tree")
 			}
 		}
+		for _, state := range slices.Collect(maps.Keys(node.StateChanges)) {
+			if !slices.Contains(tree.States, state) {
+				return errors.New("invalid OptionTree! State was not part of the tree")
+			}
+		}
 	}
 	return nil
 }

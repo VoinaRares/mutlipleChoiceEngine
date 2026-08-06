@@ -61,6 +61,9 @@ func ChooseOption(optionId string) error {
 func traverse(optionId string) error {
 	if requirementsMet(optionId) {
 		current = optionTree.Options[optionId]
+		for state, value := range current.StateChanges {
+			playerState.States[state] += value
+		}
 	}
 	return nil
 }
