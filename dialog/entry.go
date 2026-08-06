@@ -12,20 +12,20 @@ import (
 	"strings"
 )
 
-const DIALOG_PATH = "dialog.json"
+const StoryPath = "dialog.json"
 
 func resolveDialogPath() string {
 	_, callerFile, _, ok := runtime.Caller(0)
 	if !ok {
-		return DIALOG_PATH
+		return StoryPath
 	}
 
-	candidate := filepath.Clean(filepath.Join(filepath.Dir(callerFile), "..", DIALOG_PATH))
+	candidate := filepath.Clean(filepath.Join(filepath.Dir(callerFile), "..", StoryPath))
 	if _, err := os.Stat(candidate); err == nil {
 		return candidate
 	}
 
-	return DIALOG_PATH
+	return StoryPath
 }
 
 func Run() {
@@ -38,7 +38,11 @@ func Run() {
 
 	for {
 		currentOption := traversal.GetCurrent()
+		fmt.Println(currentOption.Text)
 		options := traversal.GetOptions(currentOption.Id)
+		if len(options) == 0 {
+			break
+		}
 		displayPreviews(options)
 
 		newOptionIndex, err := readOption()

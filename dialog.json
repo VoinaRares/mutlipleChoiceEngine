@@ -1,47 +1,41 @@
 {
-  "head_node_id": "entry",
+  "head_node_id": "arrive_at_inn",
   "nodes": [
     {
-      "option_id": "entry",
-      "preview_text": "",
-      "children_ids": ["arrive_at_inn"],
-      "option_text": ""
-    },
-    {
       "option_id": "arrive_at_inn",
-      "preview_text": "You arrive at a dimly lit inn. The innkeeper eyes you carefully.",
-      "children_ids": ["ask_for_room", "ask_for_drink", "leave"],
-      "option_text": ""
+      "option_text": "The door creaks as you push it open. The inn is half empty, lit by a few candles. The innkeeper looks up from behind the counter, says nothing, and waits.",
+      "preview_text": "",
+      "children_ids": ["ask_for_room", "ask_for_drink", "leave"]
     },
     {
       "option_id": "ask_for_room",
-      "preview_text": "The innkeeper slides a key across the counter.",
-      "children_ids": ["go_to_room", "ask_about_noise"],
-      "option_text": ""
+      "option_text": "The innkeeper reaches under the counter without a word and slides a heavy iron key toward you. Room 4. Top of the stairs, last door on the left.",
+      "preview_text": "Ask for a room",
+      "children_ids": ["go_to_room", "ask_about_noise"]
     },
     {
       "option_id": "ask_for_drink",
-      "preview_text": "The innkeeper pours something dark and says nothing.",
-      "children_ids": ["ask_about_noise", "leave"],
-      "option_text": ""
+      "option_text": "He pours something dark into a chipped cup and sets it in front of you. It smells like burnt wood and something else you can't place. He doesn't ask if you want anything else.",
+      "preview_text": "Ask for a drink",
+      "children_ids": ["ask_about_noise", "leave"]
     },
     {
       "option_id": "ask_about_noise",
-      "preview_text": "The innkeeper leans in. 'You didn't hear anything. Understood?'",
-      "children_ids": ["go_to_room", "leave"],
-      "option_text": ""
+      "option_text": "The innkeeper leans forward slowly, close enough that you can hear him breathing. 'There is no noise,' he says quietly. 'And there was no one in the room last night. Are we understood?'",
+      "preview_text": "Ask about the noise upstairs",
+      "children_ids": ["go_to_room", "leave"]
     },
     {
       "option_id": "go_to_room",
-      "preview_text": "You head upstairs. The floorboards creak with every step.",
-      "children_ids": [],
-      "option_text": ""
+      "option_text": "The stairs groan under every step. Room 4 is small — a bed, a window that won't latch properly, and a smell like damp stone. You sit on the edge of the mattress and listen to the inn settle around you.",
+      "preview_text": "Head up to the room",
+      "children_ids": []
     },
     {
       "option_id": "leave",
-      "preview_text": "You step back into the cold night air.",
-      "children_ids": [],
-      "option_text": ""
+      "option_text": "The cold outside is sharp after the warmth of the inn. You pull your coat tighter and walk back into the dark without looking back.",
+      "preview_text": "Leave the inn",
+      "children_ids": []
     }
   ]
 }

@@ -12,6 +12,7 @@ var current *pathing.Node
 
 type Option struct {
 	Id          string
+	Text        string
 	PreviewText string
 }
 
@@ -30,6 +31,7 @@ func Initialize(path string) error {
 func GetCurrent() Option {
 	return Option{
 		Id:          current.OptionId,
+		Text:        current.OptionText,
 		PreviewText: current.PreviewText,
 	}
 }
@@ -57,6 +59,7 @@ func GetOptions(optionId string) []Option {
 	for _, optId := range head.ChildrenIds {
 		newOption := Option{
 			Id:          optId,
+			Text:        optionTree.Options[optId].OptionText,
 			PreviewText: optionTree.Options[optId].PreviewText,
 		}
 		options = append(options, newOption)
