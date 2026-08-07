@@ -2,9 +2,9 @@ package dialog
 
 import (
 	"bufio"
+	"choice_engine/backend/traversal"
 	"errors"
 	"fmt"
-	"learningProject/traversal"
 	"os"
 	"path/filepath"
 	"runtime"

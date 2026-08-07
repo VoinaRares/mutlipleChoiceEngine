@@ -1,16 +1,16 @@
 package traversal
 
 import (
+	pathing2 "choice_engine/backend/pathing"
+	"choice_engine/backend/playerstates"
 	"errors"
-	"learningProject/pathing"
-	"learningProject/playerstates"
 	"maps"
 	"slices"
 )
 
 // The main story of the game. This tree will be used to traverse the story
-var optionTree pathing.OptionTree
-var current *pathing.Node
+var optionTree pathing2.OptionTree
+var current *pathing2.Node
 var playerState playerstates.PlayerStates
 
 type Option struct {
@@ -23,7 +23,7 @@ type Option struct {
 // Initialize this initializes the path and the options inside the tree
 func Initialize(treePath string, playerPath string) error {
 	var err error
-	optionTree, err = pathing.BuildOptionTree(treePath)
+	optionTree, err = pathing2.BuildOptionTree(treePath)
 	if err != nil {
 		return err
 	}
