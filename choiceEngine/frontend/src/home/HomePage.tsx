@@ -9,20 +9,25 @@ const PLAYER_STATES_PATH = "C:\\Users\\voina\\GolandProjects\\learningProject\\c
 function HomePage() {
     const navigate = useNavigate()
 
-    async function onClickStart() {
-        try {
-
+    async function onClickButton(path :string) {
+        try{
             await Initialize(DIALOG_PATH, PLAYER_STATES_PATH)
-            navigate("/game")
+            navigate(path)
         } catch (err){
             console.log(err)
         }
+
     }
 
     return (
-        <button onClick={onClickStart}>
-            Start
-        </button>
+        <div>
+            <button onClick={() => onClickButton("/game")}>
+                Start
+            </button>
+            <button onClick={() => onClickButton("/story")}>
+                Story Generation
+            </button>
+        </div>
     )
 }
 
